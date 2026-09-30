@@ -22,172 +22,283 @@ st.set_page_config(
 # treats that as a code block and prints raw tags as text
 # instead of rendering them. Keep everything flush-left inside
 # the triple-quoted string.
+#
+# THEME
+#   Ink navy  #0F1B33   headers, sidebar, primary text
+#   Amber     #F5A524   accent (price-tag / shopping feel)
+#   Teal      #14B8A6   online status, focus glow
+#   Mist      #F4F7FB   page background
+#   Slate     #5B6B85   secondary text
 # ============================================================
 
 st.markdown("""
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+--ink: #0F1B33;
+--ink-soft: #1B2B4B;
+--amber: #F5A524;
+--amber-soft: rgba(245,165,36,0.14);
+--teal: #14B8A6;
+--mist: #F4F7FB;
+--slate: #5B6B85;
+--line: rgba(15,27,51,0.08);
+}
+
+html, body, .stApp, [data-testid="stAppViewContainer"] {
+font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
 .stApp {
 background:
-radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.18), transparent 30%),
-radial-gradient(circle at 90% 10%, rgba(236, 72, 153, 0.16), transparent 30%),
-radial-gradient(circle at 80% 90%, rgba(14, 165, 233, 0.14), transparent 30%),
-linear-gradient(135deg, #f8fafc 0%, #eef2ff 45%, #fdf2f8 100%);
+radial-gradient(circle at 8% 0%, rgba(245,165,36,0.10), transparent 32%),
+radial-gradient(circle at 95% 8%, rgba(20,184,166,0.10), transparent 30%),
+linear-gradient(180deg, #F7F9FC 0%, #EEF3F9 100%);
 background-attachment: fixed;
+}
+
+header[data-testid="stHeader"] {
+background: transparent;
+}
+
+footer {
+visibility: hidden;
 }
 
 .block-container {
 padding-top: 2rem;
-padding-bottom: 2rem;
-max-width: 1200px;
+padding-bottom: 6rem;
+max-width: 1100px;
 }
 
 .main-header {
-padding: 28px 32px;
-border-radius: 24px;
-background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.55));
-border: 1px solid rgba(255,255,255,0.8);
-box-shadow: 0 15px 45px rgba(15,23,42,0.10);
-backdrop-filter: blur(18px);
-margin-bottom: 25px;
+position: relative;
+overflow: hidden;
+padding: 34px 38px;
+border-radius: 26px;
+background:
+radial-gradient(circle at 92% 15%, rgba(245,165,36,0.35), transparent 38%),
+radial-gradient(circle at 5% 110%, rgba(20,184,166,0.28), transparent 40%),
+linear-gradient(135deg, #0F1B33 0%, #1B2B4B 100%);
+border: 1px solid rgba(255,255,255,0.08);
+box-shadow: 0 22px 50px rgba(15,27,51,0.22);
+margin-bottom: 26px;
 }
 
 .main-title {
-font-size: 42px;
+font-family: 'Bricolage Grotesque', 'DM Sans', sans-serif;
+font-size: 44px;
 font-weight: 800;
-letter-spacing: -1px;
-background: linear-gradient(90deg, #4f46e5, #7c3aed, #db2777);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-margin-bottom: 5px;
+letter-spacing: -1.2px;
+line-height: 1.1;
+color: #FFFFFF;
+margin-bottom: 8px;
 }
 
 .main-subtitle {
-color: #64748b;
+color: #C5D0E6;
 font-size: 17px;
+font-weight: 400;
 }
 
 .online-status {
 display: inline-block;
-padding: 7px 14px;
+padding: 7px 15px;
 border-radius: 999px;
-background: rgba(34,197,94,0.12);
-color: #15803d;
+background: rgba(20,184,166,0.16);
+border: 1px solid rgba(20,184,166,0.45);
+color: #7CF0E1;
 font-size: 13px;
 font-weight: 600;
-margin-top: 12px;
+margin-top: 16px;
 }
 
 .feature-card {
-padding: 20px;
+padding: 22px 22px 20px 22px;
 border-radius: 18px;
-background: rgba(255,255,255,0.65);
-border: 1px solid rgba(255,255,255,0.9);
-box-shadow: 0 10px 30px rgba(15,23,42,0.07);
-backdrop-filter: blur(15px);
-min-height: 120px;
-transition: all 0.25s ease;
+background: #FFFFFF;
+border: 1px solid var(--line);
+border-top: 3px solid var(--amber);
+box-shadow: 0 8px 24px rgba(15,27,51,0.06);
+min-height: 140px;
+transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .feature-card:hover {
-transform: translateY(-4px);
-box-shadow: 0 15px 35px rgba(15,23,42,0.12);
+transform: translateY(-3px);
+box-shadow: 0 14px 32px rgba(15,27,51,0.11);
 }
 
 .feature-icon {
-font-size: 30px;
-margin-bottom: 8px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 46px;
+height: 46px;
+border-radius: 14px;
+background: var(--amber-soft);
+font-size: 24px;
+margin-bottom: 12px;
 }
 
 .feature-title {
+font-family: 'Bricolage Grotesque', 'DM Sans', sans-serif;
 font-weight: 700;
-color: #1e293b;
-font-size: 16px;
+color: var(--ink);
+font-size: 17px;
+letter-spacing: -0.2px;
 }
 
 .feature-description {
-color: #64748b;
-font-size: 13px;
-margin-top: 5px;
+color: var(--slate);
+font-size: 14px;
+line-height: 1.5;
+margin-top: 6px;
 }
 
 .welcome-card {
-padding: 25px;
-border-radius: 22px;
-background: linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,255,255,0.52));
-border: 1px solid rgba(255,255,255,0.9);
-box-shadow: 0 12px 35px rgba(15,23,42,0.08);
-backdrop-filter: blur(18px);
-margin-bottom: 20px;
+padding: 26px 28px;
+border-radius: 20px;
+background: #FFFFFF;
+border: 1px solid var(--line);
+border-left: 5px solid var(--amber);
+box-shadow: 0 10px 30px rgba(15,27,51,0.06);
+margin-bottom: 22px;
 }
 
 .welcome-title {
+font-family: 'Bricolage Grotesque', 'DM Sans', sans-serif;
 font-size: 24px;
-font-weight: 750;
-color: #1e293b;
+font-weight: 700;
+letter-spacing: -0.4px;
+color: var(--ink);
 margin-bottom: 8px;
 }
 
 .welcome-text {
-color: #64748b;
+color: var(--slate);
 font-size: 15px;
+line-height: 1.6;
+max-width: 70ch;
 }
 
 section[data-testid="stSidebar"] {
-background: linear-gradient(180deg, rgba(248,250,252,0.95), rgba(238,242,255,0.95));
-border-right: 1px solid rgba(148,163,184,0.15);
+background: linear-gradient(180deg, #0F1B33 0%, #14264A 100%);
+border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] li {
+color: #D6DFF0;
+}
+
+section[data-testid="stSidebar"] hr {
+border: none;
+border-top: 1px solid rgba(255,255,255,0.10);
 }
 
 .sidebar-brand {
-font-size: 23px;
+font-family: 'Bricolage Grotesque', 'DM Sans', sans-serif;
+font-size: 24px;
 font-weight: 800;
-color: #312e81;
-margin-bottom: 5px;
+letter-spacing: -0.5px;
+color: #FFFFFF;
+margin-bottom: 4px;
 }
 
 .sidebar-subtitle {
-color: #64748b;
+color: #94A6C6;
 font-size: 13px;
-margin-bottom: 20px;
+margin-bottom: 18px;
 }
 
 .sidebar-section {
 font-size: 14px;
 font-weight: 700;
-color: #334155;
-margin-top: 20px;
+color: var(--amber);
+margin-top: 18px;
 margin-bottom: 10px;
 }
 
 .example-question {
-padding: 9px 11px;
-margin-bottom: 7px;
+padding: 10px 12px;
+margin-bottom: 8px;
 border-radius: 10px;
-background: rgba(255,255,255,0.65);
-border: 1px solid rgba(226,232,240,0.8);
-color: #475569;
-font-size: 12px;
+background: rgba(255,255,255,0.06);
+border: 1px solid rgba(255,255,255,0.10);
+border-left: 3px solid var(--amber);
+color: #D6DFF0;
+font-size: 12.5px;
+line-height: 1.4;
+}
+
+section[data-testid="stSidebar"] .stButton > button {
+border-radius: 12px;
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.18);
+color: #FFFFFF;
+font-weight: 600;
+transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+background: var(--amber);
+border-color: var(--amber);
+color: var(--ink);
 }
 
 [data-testid="stChatMessage"] {
 border-radius: 18px;
-margin-bottom: 12px;
-padding: 5px;
+margin-bottom: 14px;
+padding: 14px 16px;
+background: #FFFFFF;
+border: 1px solid var(--line);
+box-shadow: 0 6px 18px rgba(15,27,51,0.05);
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
+background: #FFF6E5;
+border-color: rgba(245,165,36,0.35);
+}
+
+[data-testid="stChatMessage"] p {
+color: var(--ink);
+line-height: 1.6;
+}
+
+[data-testid="stBottom"] > div {
+background: transparent;
 }
 
 [data-testid="stChatInput"] {
 border-radius: 18px;
+border: 1px solid rgba(15,27,51,0.14);
+background: #FFFFFF;
+box-shadow: 0 10px 30px rgba(15,27,51,0.10);
+}
+
+[data-testid="stChatInput"]:focus-within {
+border-color: var(--teal);
+box-shadow: 0 0 0 3px rgba(20,184,166,0.18), 0 10px 30px rgba(15,27,51,0.10);
 }
 
 .footer {
 text-align: center;
-color: #94a3b8;
-font-size: 12px;
-padding: 15px;
+color: #7A889F;
+font-size: 12.5px;
+padding: 18px;
+}
+
+.footer b {
+color: var(--ink-soft);
 }
 
 hr {
 border: none;
-border-top: 1px solid rgba(148,163,184,0.20);
+border-top: 1px solid var(--line);
 }
 </style>
 """, unsafe_allow_html=True)
@@ -214,6 +325,27 @@ def feature_card(icon: str, title: str, description: str) -> str:
         f'<div class="feature-description">{description}</div>'
         f'</div>'
     )
+
+
+# ============================================================
+# API ERROR WARNING
+# Shown under the reply when the agent could not get an answer
+# from Gemini (for example, when the free daily quota is used up).
+# ============================================================
+
+ERROR_PREFIX = "Sorry, the AI service is temporarily unavailable"
+
+
+def show_api_warning(answer: str) -> None:
+    """If the reply is the 'service unavailable' message, explain why."""
+    if answer.startswith(ERROR_PREFIX):
+        st.warning(
+            "⚠️ **This is not a problem with your question.**\n\n"
+            "The Gemini API key has most likely reached its **daily free usage limit** "
+            "(quota), so it could not generate a response.\n\n"
+            "🕒 Please try again after some time, or come back **tomorrow** "
+            "when the limit resets."
+        )
 
 
 # ============================================================
@@ -318,6 +450,8 @@ and answer your shopping questions using intelligent tool selection.
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        if message["role"] == "assistant":
+            show_api_warning(message["content"])
 
 
 # ============================================================
@@ -335,6 +469,7 @@ if question:
         with st.spinner("🤖 AI is thinking..."):
             answer = run_agent(question)
         st.markdown(answer)
+        show_api_warning(answer)
 
     st.session_state.messages.append({"role": "assistant", "content": answer})
 
