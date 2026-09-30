@@ -169,3 +169,5 @@ if __name__ == "__main__":
     print("\n--- TEST 6: INVALID PRODUCT ---")
 
     print(get_product("P999"))
+
+    
