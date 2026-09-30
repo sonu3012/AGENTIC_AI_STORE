@@ -10,15 +10,33 @@ from tools import get_order, search_products, get_product
 
 
 # ============================================================
-# LOAD ENVIRONMENT VARIABLES
+# LOAD ENVIRONMENT VARIABLES / STREAMLIT SECRETS
 # ============================================================
 
 load_dotenv()
 
 api_key = os.getenv("GEMINI_API_KEY")
 
+# ------------------------------------------------------------
+# Streamlit Cloud
+# ------------------------------------------------------------
+
 if not api_key:
-    raise ValueError("GEMINI_API_KEY not found in .env file")
+    try:
+        import streamlit as st
+        api_key = st.secrets.get("GEMINI_API_KEY")
+    except Exception:
+        pass
+
+# ------------------------------------------------------------
+# Check API key
+# ------------------------------------------------------------
+
+if not api_key:
+    raise ValueError(
+        "GEMINI_API_KEY not configured. "
+        "Add it to .env locally or Streamlit Cloud Secrets."
+    )
 
 
 # ============================================================
@@ -456,3 +474,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+    
