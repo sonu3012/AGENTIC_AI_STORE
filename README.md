@@ -64,10 +64,12 @@ The app is deployed on Streamlit Community Cloud:
 Try these questions:
 
 ```text
-Where is my order ORD-1002?
-Tell me about product P101
-Show me shoes
-What product is in my order ORD-1002?
+1.Where is my order ORD-1002?
+2.Tell me about product P101
+3.Show me shoes
+4.What product is in my order ORD-1002?
+NOTE: if output is show like----> Sorry, the AI service is temporarily unavailable. Please try again.
+Dont worry it hit the daly limit of API KEY you can try after sometime or next day
 ```
 
 > 💡 Free Streamlit apps go to sleep after a period of inactivity. If you see a sleeping page, click the wake-up button and give it a few seconds.
